@@ -1,0 +1,7 @@
+{
+  "name": "Analog Algorithm Generator",
+  "id": "886363079571569875",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}

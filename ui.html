@@ -1,0 +1,96 @@
+
+<style>
+
+</style>
+
+
+<button id="frame">Select Frame</button>
+
+<p id="FrameName">
+  Frame Name
+</p>
+
+<p>
+  <label for="count">Point Count</label>
+
+  <input type="number" name="count" id="count" min="2" max="100" value="5">
+
+  <input type="range" name="count" id="countSlider" min="2" max="100" value="5">
+</p>
+
+<p>
+  <label for="instanceCount">Instance Count</label>
+  <input type="number" name="count" id="count" min="1" max="100" value="1">
+</p>
+
+
+<button id="generate">Generate Shape</button>
+
+<textarea id="points"></textarea>
+<button id="download">copy grid to clipboard</button>
+
+<script>
+
+const inputCount = document.getElementById('count');
+const inputCountSlider = document.getElementById('countSlider');
+let gridArray = [];
+
+document.getElementById('generate').onclick = () => {
+  const count = parseInt( document.getElementById('count').value );
+
+  parent.postMessage({
+    pluginMessage: {
+      type: 'generate-form',
+      count
+    }
+  }, '*')
+}
+
+document.getElementById('frame').onclick = () => {
+  parent.postMessage({
+    pluginMessage: {
+      type: 'frame-select'
+    }
+  }, '*')
+}
+
+document.getElementById('download').onclick = () => {
+
+  let dummy = document.createElement("textarea");
+  document.body.appendChild(dummy);
+  dummy.value = JSON.stringify( gridArray );
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+}
+
+// make sure input is not getting over max
+inputCount.onchange = () => {
+  if( inputCount.value > inputCount.max ){
+    inputCount.value = inputCount.max;
+  }
+  inputCountSlider.value = inputCount.value;
+}
+
+inputCountSlider.onchange = () => {
+  inputCount.value = inputCountSlider.value;
+}
+
+window.onmessage = msg => {
+
+  let content = msg.data.pluginMessage.pluginMessage;
+
+  if (content.type === 'frame-name') {
+    document.getElementById('FrameName').innerHTML = content.data;
+  }
+
+  if (content.type === 'points-count') {
+    inputCount.max = content.data.count;
+    inputCountSlider.max = content.data.count;
+    document.getElementById('points').value = JSON.stringify(content.data.array);
+    gridArray = content.data.array;
+  }
+
+}
+
+</script>

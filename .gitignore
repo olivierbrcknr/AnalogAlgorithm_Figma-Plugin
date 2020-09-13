@@ -1,0 +1,6 @@
+.DS_Store
+
+/node_modules
+
+# this file gets generated via typescript
+code.js
