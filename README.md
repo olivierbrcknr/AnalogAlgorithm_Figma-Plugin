@@ -1,9 +1,10 @@
 # Analog Algorithm
 
-This is a Figma plugin, enabling users to generate shapes, inspired by the book [Analog Algorithm](https://analog-algorithm.com/) by [Christoph Grünberger](https://twitter.com/grnbrger). More specifically by its chapter number 03.
-
+This is a Figma plugin, enabling users to generate shapes, inspired by the book [Analog Algorithm](https://analog-algorithm.com/) by [Christoph Grünberger](https://twitter.com/grnbrger). More specifically by its chapter number 03, "Grid-Systems, Object-Based".
 
 ## Usage
+
+![Plugin Screenshot](img/screenshot.png)
 
 1. Select a frame in which you want to generate the shape in.
 2. In the frame, generate rectangles in the top layer. These will act as the dots of the grid, while their center is the relevant coordinate.
